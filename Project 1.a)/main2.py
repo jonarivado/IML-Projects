@@ -4,7 +4,7 @@ from sklearn.model_selection import cross_val_score
 from sklearn.model_selection import RepeatedKFold
 from sklearn.linear_model import Ridge
 # load the dataset
-train_df=pd.read_csv(r'C:\Users\Manue\Documents\ETH\Master\2.semester\introduction to machinelearning\code projects\1.a\train.csv')
+train_df=pd.read_csv('train.csv')
 y=pd.DataFrame(train_df['y'])
 X=train_df.drop(labels='y',axis=1)
 
