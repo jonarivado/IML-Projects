@@ -33,7 +33,7 @@ X_trafo, y, test_size=0.2, random_state=42)
 
 #fit model
 reg = LinearRegression().fit(X_train, y_train)
-print(reg.score(X_train,y_train))
+print(reg.score(X_test,y_test))
 #print(pd.DataFrame(reg.coef_,axis=0))
 weights_df=pd.DataFrame(data=np.transpose(reg.coef_))
 weights_df.to_csv('submission.csv',index=False, header=False)
