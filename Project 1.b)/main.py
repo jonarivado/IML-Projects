@@ -1,7 +1,8 @@
 import pandas as pd
 import numpy as np
 from sklearn.model_selection import train_test_split
-from sklearn.linear_model import LinearRegression
+from sklearn.linear_model import LinearRegression,LassoCV
+from sklearn.metrics import mean_squared_error
 
 #load dataset
 train_data=pd.read_csv('train.csv')
@@ -33,7 +34,17 @@ X_trafo, y, test_size=0.2, random_state=42)
 
 #fit model
 reg = LinearRegression().fit(X_train, y_train)
-print(reg.score(X_test,y_test))
-#print(pd.DataFrame(reg.coef_,axis=0))
-weights_df=pd.DataFrame(data=np.transpose(reg.coef_))
-weights_df.to_csv('submission.csv',index=False, header=False)
+y_pred=reg.predict(X_test)
+print(mean_squared_error(y_test, y_pred)**2)
+print(reg.coef_)
+
+reg1 = LassoCV(cv=10, random_state=0, max_iter=100000).fit(X_train, np.ravel(y_train))
+y_pred1=reg1.predict(X_test)
+print(mean_squared_error(y_test, y_pred1)**2)
+print(reg1.coef_)
+
+# reg = LinearRegression().fit(X_train, y_train)
+# print(reg.score(X_test,y_test))
+# #print(pd.DataFrame(reg.coef_,axis=0))
+# weights_df=pd.DataFrame(data=np.transpose(reg.coef_))
+# weights_df.to_csv('submission.csv',index=False, header=False)
